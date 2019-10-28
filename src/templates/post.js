@@ -3,6 +3,9 @@ import Helmet from "react-helmet";
 import { Link, graphql } from "gatsby";
 import styled from "styled-components";
 import kebabCase from "lodash/kebabCase";
+import { DiscussionEmbed } from "disqus-react";
+import PropTypes from "prop-types";
+
 import Layout from "../components/Layout";
 import SEO from "../components/SEO";
 import Wrapper from "../components/Wrapper";
@@ -10,7 +13,6 @@ import Header from "../components/Header";
 import Subline from "../components/Subline";
 import Social from "../components/Social";
 import { media } from "../utils/media";
-import { DiscussionEmbed } from "disqus-react";
 
 import config from "../../config/SiteConfig";
 import "../utils/dracula-prism.css";
@@ -66,7 +68,7 @@ const Post = props => {
                     <Title>{post.title}</Title>
                     <Subline>
                         {post.date} &mdash; {postNode.timeToRead} Min Read
-                        &mdash; In{" "}
+                        &mdash; In&nbsp;
                         <Link to={`/categories/${kebabCase(post.category)}`}>
                             {post.category}
                         </Link>
@@ -78,6 +80,7 @@ const Post = props => {
                     <a
                         href="https://www.buymeacoffee.com/thitemple"
                         target="_blank"
+                        rel="noopener noreferrer"
                     >
                         <img
                             src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png"
@@ -100,7 +103,19 @@ const Post = props => {
 };
 
 export default Post;
-
+Post.propTypes = {
+    data: PropTypes.shape({
+        markdownRemark: PropTypes.shape({
+            html: PropTypes.string,
+            frontmatter: PropTypes.shape({
+                title: PropTypes.string,
+                date: PropTypes.string,
+                category: PropTypes.string,
+                path: PropTypes.string
+            })
+        }).isRequired
+    }).isRequired
+};
 /* eslint no-undef: off */
 export const postQuery = graphql`
     query postByPath($path: String!) {

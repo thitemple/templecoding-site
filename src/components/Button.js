@@ -1,18 +1,22 @@
 import React from "react";
 import styled from "styled-components";
 import { lighten } from "polished";
+import PropTypes from "prop-types";
 
 const Wrapper = styled.button`
     background: ${props => props.theme.primary};
     border: none;
     display: inline-flex;
     align-items: center;
-    border-radius: ${props => (props.big ? "1.5rem" : "1rem")};
+    border-radius: ${props => (props.big ? "1rem" : "0.5rem")};
     font-size: ${props => (props.big ? "1.2rem" : "1rem")};
     color: white;
-    padding: ${props => (props.big ? "0.35rem 1.6rem" : "0.25rem 1.5rem")};
+    padding: ${props => (props.big ? "0.45rem 1.6rem" : "0.35rem 1.5rem")};
     transition: all ${props => props.theme.transitionTime};
     box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+    a {
+        color: white;
+    }
     &:hover {
         background: ${props => lighten(0.05, props.theme.primaryLight)};
         cursor: pointer;
@@ -29,6 +33,18 @@ const Wrapper = styled.button`
     }
 `;
 
-const Button = props => <Wrapper big={props.big}>{props.children}</Wrapper>;
+const Button = props => (
+    <Wrapper big={props.big} {...props}>
+        {props.children}
+    </Wrapper>
+);
+Button.propTypes = {
+    big: PropTypes.bool,
+    children: PropTypes.node.isRequired
+};
+
+Button.defaultProps = {
+    big: false
+};
 
 export default Button;

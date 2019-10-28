@@ -136,7 +136,7 @@ const Layout = ({ children }) => {
             `}
             render={() => (
                 <ThemeProvider theme={theme}>
-                    <React.Fragment>
+                    <>
                         <GlobalStyle />
                         <SEO />
                         {children}
@@ -168,7 +168,7 @@ const Layout = ({ children }) => {
                                         <TiRss size={40} />
                                     </a>
                                     <a
-                                        href="https://twitter.com/vintem12"
+                                        href="https://twitter.com/ThiagoTemple"
                                         rel="noopener noreferrer"
                                         target="_blank"
                                     >
@@ -209,7 +209,7 @@ const Layout = ({ children }) => {
                                 reserved.
                             </Copyrights>
                         </Footer>
-                    </React.Fragment>
+                    </>
                 </ThemeProvider>
             )}
         />
